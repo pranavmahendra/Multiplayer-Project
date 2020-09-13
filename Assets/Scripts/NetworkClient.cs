@@ -22,4 +22,5 @@ public class NetworkClient : SocketIOComponent
             Debug.Log("Connection made to the server.");
         });
     }
+
 }
