@@ -5,7 +5,7 @@ var io = require('socket.io')(server);
 io.on('connection', function(socket){
     console.log('A user connected');
 
-    socket.emit('connection');
+    socket.emit('connection', {'id' : 101, 'gems' : 1000});
   });
 
   
