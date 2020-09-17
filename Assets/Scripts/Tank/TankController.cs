@@ -14,6 +14,7 @@ public class TankController
 
     public TankModel TankModel { get; }
     public TankView TankView { get; }
+    private float CannonAngle;
 
 
     public void TankMovement()
@@ -45,11 +46,22 @@ public class TankController
     }
 
 
-    public void ShootBullet()
+    //public void ShootBullet()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        Debug.Log("Shoot bullet");
+    //    }
+    //}
+
+
+    public void MousePos()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            Debug.Log("Shoot bullet");
+            CannonAngle += Input.GetAxis("Mouse Y") * 1000f * Time.deltaTime;
+            CannonAngle = Mathf.Clamp(CannonAngle, 1, 90);
+            TankView.turret.localRotation = Quaternion.AngleAxis(CannonAngle, Vector3.forward);
         }
     }
 }

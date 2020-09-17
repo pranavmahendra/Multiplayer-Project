@@ -5,43 +5,45 @@ using UnityEngine;
 public class TankView : MonoBehaviour
 {
     public int speed;
-    private Camera mainCam;
-
     public TankController tankController;
+    public Transform turret;
 
-    private Vector3 mousePos;
-    private Vector3 mouseViewportPos;
+    public Transform bulletPos;
+
+    [HideInInspector]
+    public Vector3 mousePos;
+    [HideInInspector]
+    public Vector3 mouseViewportPos;
 
     //Rotating the turret
 
 
     void Start()
     {
-        mainCam = Camera.main;
+
     }
 
 
     void Update()
     {
+        
         tankController.TankMovement();
 
-        tankController.ShootBullet();
+        //tankController.ShootBullet();
 
+        tankController.MousePos();
 
-        mousePos = Input.mousePosition;
-        mousePos.z = 10f;
+        //RaycastHit2D hit = Physics2D.Raycast(turret.transform.position, turret.transform.forward, 10f);
 
-        mouseViewportPos = mainCam.ScreenToWorldPoint(mousePos);
- 
-        Debug.Log("MMouse viewport Pos: " + mouseViewportPos);
+        Debug.DrawRay(turret.transform.position, turret.transform.right, Color.red);
     }
+
+
 
     public void Initialize(TankController tc)
     {
         this.tankController = tc;
     }
 
-   
-
-
+ 
 }
