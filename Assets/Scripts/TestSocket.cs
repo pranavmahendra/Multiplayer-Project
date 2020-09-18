@@ -7,6 +7,9 @@ using System;
 public class TestSocket : MonoBehaviour
 {
     private SocketIOComponent socket;
+    public List<GameObject> Players;
+
+    public static int playerCount = 0;
 
     void Start()
     {
@@ -14,7 +17,24 @@ public class TestSocket : MonoBehaviour
         socket.Connect();
 
         socket.On("connection", onConnected);
-        socket.On("error", onError);
+        socket.On("disconnect", onDisconnected);
+        //socket.On("error", onError);
+        socket.On("spawn", onSpawned);
+
+    }
+
+    private void onDisconnected(SocketIOEvent obj)
+    {
+        
+        playerCount--;
+    }
+
+    private void onSpawned(SocketIOEvent obj)
+    {
+        Debug.Log("Spawned");
+
+        TankService.Instance.CreateTank(playerCount);
+        playerCount++;
     }
 
     private void onError(SocketIOEvent obj)
@@ -24,11 +44,11 @@ public class TestSocket : MonoBehaviour
 
     private void onConnected(SocketIOEvent obj)
     {
-        Debug.Log("Server Connected" + obj);
-    }
+        Debug.Log("Server Connected");
 
-    void Update()
-    {
-        
+        socket.Emit("Move");
+
+
     }
+    
 }

@@ -27,7 +27,8 @@ public class Bulllet_Controller
 
     public void SetForce()
     {
-        View.rb2d.AddForce(Vector2.right * 1000f, ForceMode2D.Force);
+        View.transform.Translate(Vector3.right * 8f * Time.deltaTime);
+        //View.rb2d.AddForce(Vector2.right * 2f, ForceMode2D.Force);
     }
 
     //Destroy logic.

@@ -8,8 +8,9 @@ public class TankController
     {
         this.TankModel = tankModel;
 
-        this.TankView = prefab;
-        prefab.Initialize(this);
+        this.TankView = GameObject.Instantiate<TankView>(prefab);
+
+        TankView.Initialize(this);
     }
 
     public TankModel TankModel { get; }
@@ -19,7 +20,7 @@ public class TankController
 
     public void TankMovement()
     {
-        Debug.Log("Value of Tank rotation is: " + TankView.transform.rotation.y);
+        //Debug.Log("Value of Tank rotation is: " + TankView.transform.rotation.y);
 
         if (Input.GetKey(KeyCode.D))
         {
@@ -28,7 +29,7 @@ public class TankController
 
             if (TankView.transform.rotation.y == 1)
             {
-                Debug.Log("Flip tank");
+                //Debug.Log("Flip tank");
                 TankView.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
             }
 
@@ -39,7 +40,7 @@ public class TankController
 
             if (TankView.transform.rotation.y == 0)
             {
-                Debug.Log("Flip tank");
+                //Debug.Log("Flip tank");
                 TankView.transform.rotation = new Quaternion(0.0f, 180.0f, 0.0f, 0.0f);
             }
         }

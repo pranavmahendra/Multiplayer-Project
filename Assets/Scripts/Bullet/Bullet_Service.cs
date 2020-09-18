@@ -7,6 +7,7 @@ public class Bullet_Service : MonosingletonGeneric<Bullet_Service>
 {
     public Bulllet_Controller controller;
     public Bullet_View prefab;
+   
 
     void Start()
     {

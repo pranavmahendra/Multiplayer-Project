@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class TankService : MonosingletonGeneric<TankService>
 {
-    public TankView tankPrefab;
+    public List<TankView> tankPrefab;
+    
     private Bullet_Service bullet_Service;
     public Transform bullet;
 
-
     void Start()
     {
-        CreateTank();
+        //CreateTank(0);
 
         bullet_Service = Bullet_Service.Instance;
 
@@ -24,15 +24,15 @@ public class TankService : MonosingletonGeneric<TankService>
     private void bullet_fired()
     {
         bullet_Service.CreateBullet(19);
-        bullet_Service.controller.setPosition(tankPrefab.bulletPos.transform.position, tankPrefab.bulletPos.transform.rotation);
+        bullet_Service.controller.setPosition(tankPrefab[TestSocket.playerCount].bulletPos.transform.position, tankPrefab[TestSocket.playerCount].bulletPos.transform.rotation);
     }
 
 
-    public TankController CreateTank()
+    public TankController CreateTank(int playerID)
     {
         TankModel tankModel = new TankModel(10);
 
-        TankController tankController = new TankController(tankModel, tankPrefab);
+        TankController tankController = new TankController(tankModel, tankPrefab[playerID]);
 
         return tankController;
     }

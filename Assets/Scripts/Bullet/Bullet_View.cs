@@ -11,13 +11,15 @@ public class Bullet_View : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
 
-        StartCoroutine(DestroyFuncInvoke());
+        //StartCoroutine(DestroyFuncInvoke());
     }
 
-    void Update()
+
+    private void FixedUpdate()
     {
-        SetForce();
+        controller.SetForce();
     }
+
 
     public void Initialize(Bulllet_Controller controller)
     {
@@ -26,7 +28,7 @@ public class Bullet_View : MonoBehaviour
 
     public void SetForce()
     {
-        this.transform.Translate(Vector3.right * 2f * Time.deltaTime);
+       
     }
 
     public void DestoryView()
@@ -34,10 +36,16 @@ public class Bullet_View : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator DestroyFuncInvoke()
+    public void DestroyFuncInvoke()
     {
-        Debug.Log("Coroutine started");
-        yield return new WaitForSeconds(3);
         controller.bulletDestroy();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            DestroyFuncInvoke();
+        }
     }
 }
