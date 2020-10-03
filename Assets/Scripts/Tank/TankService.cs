@@ -6,7 +6,7 @@ using UnityEngine;
 public class TankService : MonosingletonGeneric<TankService>
 {
     public List<TankView> tankPrefab;
-    
+    private TankController tankControl;
     private Bullet_Service bullet_Service;
     public Transform bullet;
 
@@ -24,7 +24,7 @@ public class TankService : MonosingletonGeneric<TankService>
     private void bullet_fired()
     {
         bullet_Service.CreateBullet(19);
-        bullet_Service.controller.setPosition(tankPrefab[TestSocket.playerCount].bulletPos.transform.position, tankPrefab[TestSocket.playerCount].bulletPos.transform.rotation);
+        bullet_Service.controller.setPosition(tankControl.TankView.bulletPos.transform.position, tankControl.TankView.bulletPos.transform.rotation);
     }
 
 
@@ -33,6 +33,8 @@ public class TankService : MonosingletonGeneric<TankService>
         TankModel tankModel = new TankModel(10);
 
         TankController tankController = new TankController(tankModel, tankPrefab[playerID]);
+
+        this.tankControl = tankController;
 
         return tankController;
     }
